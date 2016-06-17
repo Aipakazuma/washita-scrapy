@@ -36,6 +36,9 @@ def get_item_scrapy(url, f):
         # カテゴリリストの取得
         category_sum_name = pankuzu_list[2].getText().strip()
 
+        # 商品名の用意
+        item_title = bs_obj.find('div', {'id': 'detailrightbloc'}).find('h3').getText().strip()
+
         # 画像を取得
         image_src = bs_obj.find('img', {'class': 'picture'})['src']
 
@@ -43,6 +46,7 @@ def get_item_scrapy(url, f):
         explain_text = bs_obj.find('div', {'class': 'main_comment'}).getText().strip().replace('\n', '').replace('\r', '')
 
         f.write(product_code + ',' +
+                item_title + ',' +
                 category_name + ',' +
                 category_sum_name + ',' +
                 image_src + ',"' +
@@ -60,7 +64,7 @@ def get_items_scrapy(items, f):
 
 def main():
     # argv = sys.argv
-    url = 'http://www.washita.co.jp/products/list.php?transactionid=824190a3872b5976383c102d4a2b1d11fb06c9bb&mode=search&category_id=0&maker_id=0&name=&product_code=&product_jancode=&price02_min=&price02_max=&orderby=&disp_number=200&product_id=&classcategory_id1=&classcategory_id2=&product_class_id=&quantity=&rnd=mou'
+    url = 'http://www.washita.co.jp/products/list.php?transactionid=b6d044fea3bfee66a24d564f03c105886e1452db&mode=search&category_id=0&maker_id=0&name=&product_code=&product_jancode=&price02_min=&price02_max=&orderby=&disp_number=200&product_id=&classcategory_id1=&classcategory_id2=&product_class_id=&quantity=&rnd=slo'
     parameter = '&pageno='
     f = open('result_20160616.csv', 'w')
     for i in range(1, 11):
